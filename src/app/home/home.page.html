@@ -17,8 +17,8 @@
   <button mat-raised-button color="primary" (click)="addItem(productName.value, +productPrice.value, +productQuantity.value, +productDiscount.value)">
     Agregar
   </button>
-  <button mat-raised-button color="warn" (click)="clearList()">Limpiar Lista</button>
-  <dialog-elements-example> Limpiar Lista</dialog-elements-example>
+  <!-- <button mat-raised-button color="warn" (click)="clearList()">Limpiar Lista</button> -->
+  <dialog-elements-example (click)="openDialog()"> Limpiar modal </dialog-elements-example>
 </mat-card>
 <mat-list>
   <mat-list-item *ngFor="let item of items; let index = index" >

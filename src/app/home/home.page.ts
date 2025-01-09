@@ -10,7 +10,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatListModule } from '@angular/material/list';
-import { MatDialogModule } from '@angular/material/dialog';
+import { MatDialog } from '@angular/material/dialog';
 import { DialogElementsExample, DialogElementsExampleDialog } from 'src/components/modal/modal.component';
 
 interface ShoppingItem {
@@ -44,10 +44,18 @@ export class ShoppingListComponent  {
   items: ShoppingItem[] = [];
   total: number = 0;
 
-  constructor(private localStorageService: LocalStorageService) {}
+  constructor(
+    private localStorageService: LocalStorageService,
+    public dialog: MatDialog) {}
 
   ngOnInit() {
     this.loadItems();
+  }
+  openDialog() {
+    this.dialog.open(DialogElementsExampleDialog, {
+      data: { clearList: this.clearList.bind(this) }
+    });
+    console.log(this.clearList);
   }
 
   saveItems() {
@@ -58,6 +66,7 @@ export class ShoppingListComponent  {
     console.log(this.items);
     this.localStorageService.removeItem('shoppingList');
     this.calculateTotal();
+    console.log('List cleared');
   }
   clearElement(index: number) {
     this.items.splice(index, 1);
